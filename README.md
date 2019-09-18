@@ -5,6 +5,7 @@ strings.xmlにAPP IDを入力します。
 https://github.com/fu-jimoto/AgoraIO-OnlineKaraoke/blob/master/app/src/main/res/values/strings.xml#L39
 
 ## 操作方法
+Host x1, Audience x2の想定で実装しています。
 ### Host側
 1.Hostにチェックをつけて「LOGIN」をクリックします。（RTMへのログイン）  
 2.音質の設定をします。  
