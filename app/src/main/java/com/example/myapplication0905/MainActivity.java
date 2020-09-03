@@ -34,11 +34,14 @@ import java.util.List;
 
 import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.RtmChannel;
+import io.agora.rtm.RtmChannelAttribute;
 import io.agora.rtm.RtmChannelListener;
 import io.agora.rtm.RtmChannelMember;
 import io.agora.rtm.RtmClient;
 import io.agora.rtm.RtmClientListener;
 import io.agora.rtm.RtmMessage;
+
+import java.util.Map;
 import java.util.Random;
 import io.agora.rtm.ResultCallback;
 
@@ -354,7 +357,8 @@ public class MainActivity  extends AppCompatActivity {
 
         //RTM
         try {
-            mRtmClient = RtmClient.createInstance(getBaseContext(), getString(R.string.agora_app_id), new RtmClientListener() {
+            mRtmClient = RtmClient.createInstance(getBaseContext(),
+                    getString(R.string.agora_app_id), new RtmClientListener() {
                 @Override
                 public void onConnectionStateChanged(final int state, final int reason) {
                     runOnUiThread(new Runnable() {
@@ -376,7 +380,12 @@ public class MainActivity  extends AppCompatActivity {
 
                 @Override
                 public void onTokenExpired() { }
-            });
+
+                        @Override
+                        public void onPeersOnlineStatusChanged(Map<String, Integer> map) {
+
+                        }
+                    });
         } catch (Exception e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
             throw new RuntimeException("NEED TO check rtm sdk init fatal error\n" + Log.getStackTraceString(e));
@@ -548,13 +557,21 @@ public class MainActivity  extends AppCompatActivity {
         tvStatus.setText(getString(R.string.label_null));
     }
 
-
     /**
      * API CALLBACK: rtm channel event listener
      */
     class MyChannelListener implements RtmChannelListener {
 
 
+        @Override
+        public void onMemberCountUpdated(int i) {
+
+        }
+
+        @Override
+        public void onAttributesUpdated(List<RtmChannelAttribute> list) {
+
+        }
 
         @Override
         public void onMessageReceived(final RtmMessage message, final RtmChannelMember fromMember) {
